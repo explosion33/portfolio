@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Portfolio" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <script
+      src="https://kit.fontawesome.com/fa62c117c7.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="static/styles.css" />
+    <title>Ethan Armstrong</title>
+  </head>
+  <body class="light" id="top">
+    <header class="header center">
+      <h3>
+        <a href="/" class="link"
+          >EA.</a
+        >
+      </h3>
+
+      <nav class="nav center">
+        <ul class="nav__list center">
+          <li class="nav__list-item">
+            <a class="link link--nav" href="#projects">Projects</a>
+          </li>
+          <li class="nav__list-item">
+            <a class="link link--nav" href="#skills">Skills</a>
+          </li>
+          <li class="nav__list-item">
+            <a class="link link--nav" href="#contact">Contact</a>
+          </li>
+        </ul>
+
+        <button type="button" aria-label="toggle theme" class="btn btn--icon">
+          <i aria-hidden="true" id="btn-theme" class="fas fa-moon"></i>
+        </button>
+
+        <button
+          type="button"
+          aria-label="toggle navigation"
+          class="btn btn--icon nav__hamburger"
+        >
+          <i aria-hidden="true" class="fas fa-bars"></i>
+        </button>
+      </nav>
+    </header>
+
+    <main>
+      <!-- About -->
+      <div class="about center">
+        <h1>Hi, I am <span class="about__name">Ethan Armstrong.</span></h1>
+        <h2 class="about__role"></h2>
+        <p class="about__desc">
+          I am an undegraduate student at the University of Washington, who is
+          extremely passionate about all things STEM. I have lots experience in
+          Computer Science, Engineering, Mathematics, and Physics, and would say
+          I am skilled in leadership, collaboration, and problem solving. Above all
+          else I value comradarie, and actively seek out oppurtunities to make life
+          long friends, and long lasting relationships.
+        </p>
+
+        <div class="about__contact center">
+          <a href="/static/resume.pdf">
+            <span class="btn btn--outline">Resume</span>
+          </a>
+
+          <a
+            href="https://github.com/explosion33"
+            aria-label="github"
+            class="link link--icon"
+          >
+            <i aria-hidden="true" class="fab fa-github"></i>
+          </a>
+
+          <a
+            href="https://www.linkedin.com/in/warmst"
+            aria-label="linkedin"
+            class="link link--icon"
+          >
+            <i aria-hidden="true" class="fab fa-linkedin"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Projects -->
+      <section id="projects" class="section projects">
+        <h2 class="section__title">Projects</h2>
+
+        <div class="projects__grid">
+          
+          
+          <div class="project">
+            <h3>VHF Radio PCB</h3>
+            <p class="project__description">
+              A custom PCB that interfaces an STM32 with TI's CC1200
+              radio chip. Implemented I2C and Serial interface, as
+              well as external libraries to allow for platform independant
+              control.
+            </p>
+            <ul class="project__stack">
+              <li class="project__stack-item">Rust</li>
+              <li class="project__stack-item">STM32</li>
+              <li class="project__stack-item">KiCad</li>
+            </ul>
+
+            <a
+              href="https://github.com/stars/explosion33/lists/cc1200-radio-project"
+              aria-label="source code"
+              class="link link--icon"
+            >
+              <i aria-hidden="true" class="fab fa-github"></i>
+            </a>
+          </div>
+
+          <div class="project">
+            <h3>P.L.O.P. / Drone</h3>
+            <p class="project__description">
+              Control systems for SARP's various payloads.
+              Handles the gathering, filtering,
+              and fusing of flight data. PID and LQR verticle
+              stabalizing controllers. Remote control and
+              monitoring solutions
+            </p>
+            <ul class="project__stack">
+              <li class="project__stack-item">Rust</li>
+              <li class="project__stack-item">Python</li>
+              <li class="project__stack-item">Raspberry Pi</li>
+            </ul>
+
+            <a
+              href="https://github.com/stars/explosion33/lists/sarp"
+              aria-label="source code"
+              class="link link--icon"
+            >
+              <i aria-hidden="true" class="fab fa-github"></i>
+            </a>
+          </div>
+
+          <div class="project">
+            <h3>Rocket Ground</h3>
+            <p class="project__description">
+              A QT and C++ desktop GUI that enables the
+              display of sensor data as well as the sending
+              of push commands.
+            </p>
+            <br>
+            <br>
+            <ul class="project__stack">
+              <li class="project__stack-item">C++</li>
+              <li class="project__stack-item">QT</li>
+              <li class="project__stack-item">Flask</li>
+              <li class="project__stack-item">Rocket</li>
+            </ul>
+
+            <a
+              href="https://github.com/explosion33/RocketGround"
+              aria-label="source code"
+              class="link link--icon"
+            >
+              <i aria-hidden="true" class="fab fa-github"></i>
+            </a>
+          </div>
+
+          <div class="project">
+            <h3>Uploader</h3>
+            <p class="project__description">
+              A file linking server that allows users to
+              easily share files by uploading them and sending
+              others a link.
+            </p>
+            <br>
+            <br>
+            <ul class="project__stack">
+              <li class="project__stack-item">Flask</li>
+              <li class="project__stack-item">CSS</li>
+              <li class="project__stack-item">JavaScript</li>
+            </ul>
+
+            <a
+              href="https://github.com/explosion33/uploadServer"
+              aria-label="source code"
+              class="link link--icon"
+            >
+              <i aria-hidden="true" class="fab fa-github"></i>
+            </a>
+            <a
+              href="http://upload.armstronglabs.net"
+              aria-label="live preview"
+              class="link link--icon"
+            >
+              <i aria-hidden="true" class="fas fa-external-link-alt"></i>
+            </a>
+          </div>
+
+          <div class="project">
+            <h3>Image Converter</h3>
+            <p class="project__description">
+              A QT and C++ based desktop GUI that converts images
+              between formats. Includes the ability to convert HEIC / HEIF
+              into more standard formats such as PNG and JPG
+            </p>
+            <ul class="project__stack">
+              <li class="project__stack-item">QT</li>
+              <li class="project__stack-item">C++</li>
+            </ul>
+
+            <a
+              href="https://github.com/explosion33/imageConverter"
+              aria-label="source code"
+              class="link link--icon"
+            >
+              <i aria-hidden="true" class="fab fa-github"></i>
+            </a>
+          </div>
+
+          <div class="project">
+            <h3>Proxy Server</h3>
+            <p class="project__description">
+              A No-IP, Contabo and NGINX based proxy system
+              to add custom static subdomains to dynamic IP
+              home network.
+            </p>
+            <br>
+            <br>
+            <ul class="project__stack">
+              <li class="project__stack-item">SASS</li>
+              <li class="project__stack-item">TypeScript</li>
+              <li class="project__stack-item">React</li>
+            </ul>
+            <a
+              href="https://github.com/explosion33/proxy_server"
+              aria-label="source code"
+              class="link link--icon"
+            >
+              <i aria-hidden="true" class="fab fa-github"></i>
+            </a>
+          </div>
+
+          <div class="project">
+            <h3>Class 1 Rocket</h3>
+            <p class="project__description">
+              A dual-deployment high power rocket with custom flight
+              hardware and software.
+            </p>
+            <br>
+            <br>
+            <ul class="project__stack">
+              <li class="project__stack-item">3D Modeling</li>
+              <li class="project__stack-item">KiCad</li>
+              <li class="project__stack-item">Rust</li>
+            </ul>
+            <a
+              href="https://github.com/explosion33/RocketController"
+              aria-label="source code"
+              class="link link--icon"
+            >
+              <i aria-hidden="true" class="fab fa-github"></i>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Skills -->
+      <section class="section skills" id="skills">
+        <h2 class="section__title">Skills</h2>
+        <ul class="skills__list">
+          <li class="skills__list-item btn btn--plain">Rust</li>
+          <li class="skills__list-item btn btn--plain">C / C++</li>
+          <li class="skills__list-item btn btn--plain">Python</li>
+          <li class="skills__list-item btn btn--plain">Java</li>
+          <li class="skills__list-item btn btn--plain">JavaScript</li>
+          <li class="skills__list-item btn btn--plain">HTML</li>
+          <li class="skills__list-item btn btn--plain">CSS</li>
+          <li class="skills__list-item btn btn--plain">Git</li>
+          <li class="skills__list-item btn btn--plain">QT</li>
+          <li class="skills__list-item btn btn--plain">3D Modeling</li>
+          <li class="skills__list-item btn btn--plain">KiCad</li>
+          <li class="skills__list-item btn btn--plain">CI/CD</li>
+          <li class="skills__list-item btn btn--plain">Docker</li>
+        </ul>
+      </section>
+
+      <!-- Contact -->
+      <section class="section contact center" id="contact">
+        <h2 class="section__title">Contact</h2>
+        <a href="mailto:warmst@uw.edu">
+          <span class="btn btn--outline">Email me</span>
+        </a>
+        
+      </section>
+      <br>
+      <p class = "contact center">warmst@uw.edu &#x2022; w.ethan.armstrong@gmail.com &#x2022; +1 (949) 424 4530</p>
+    </main>
+
+    <footer class="footer">
+    </footer>
+
+    <div class="scroll-container">
+    <div class="scroll-top">
+      <a aria-label="Scroll up" href="#top">
+        <i aria-hidden="true" class="fas fa-arrow-up"></i>
+      </a>
+    </div>
+    </div>
+
+    <script src="static/script.js"></script>
+  </body>
+</html>
