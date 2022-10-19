@@ -1,11 +1,22 @@
+use std::path::{Path, PathBuf};
+
 use rocket::{
     self,
     Config,
+    fs::NamedFile,
 };
 
+use rocket_dyn_templates::Template;
+
+
 #[rocket::get("/")]
-fn test() -> &'static str {
-    return "test!";
+fn index() -> Template {
+    Template::render("test", rocket_dyn_templates::context!{ field: "value" })
+}
+
+#[rocket::get("/static/<file..>")]
+async fn get_file(file: PathBuf) -> Option<NamedFile> {
+    NamedFile::open(Path::new("public/").join(file)).await.ok()
 }
 
 
@@ -19,7 +30,8 @@ pub fn start_api() {
         .expect("create tokio runtime")
         .block_on(async move {
             let _ = rocket::build()
-            .mount("/", rocket::routes![test])
+            .mount("/", rocket::routes![index, get_file])
+            .attach(Template::fairing())
             //.manage()
             .launch()
             .await;
