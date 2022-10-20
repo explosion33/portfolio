@@ -107,6 +107,10 @@
     padding: 0 0 0.3em 0;
     position: relative;
   }
+
+  .link_header {
+    color: var(--clr-fg-alt);
+  }
   
   .link:hover {
     color: var(--clr-primary);
@@ -294,6 +298,13 @@
     margin: 0 auto;
     text-align: center;
     box-shadow: var(--shadow);
+    transition: transform 0.2s linear;
+  }
+
+  .image {
+    padding: 2em;
+    margin: 0 auto;
+    text-align: center;
     transition: transform 0.2s linear;
   }
   

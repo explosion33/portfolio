@@ -14,9 +14,19 @@ fn index() -> Template {
     Template::render("test", rocket_dyn_templates::context!{ field: "value" })
 }
 
-#[rocket::get("/static/<file..>")]
+#[rocket::get("/<project>")]
+fn project(project: String) -> Template {
+    Template::render(project, rocket_dyn_templates::context!{})
+}
+
+#[rocket::get("/static/<file>")]
 async fn get_file(file: PathBuf) -> Option<NamedFile> {
     NamedFile::open(Path::new("public/").join(file)).await.ok()
+}
+
+#[rocket::get("/<project>/img/<file>")]
+async fn get_project_image(project: String, file: PathBuf) -> Option<NamedFile> {
+    NamedFile::open(Path::new("proj_images/").join(Path::new(&project)).join(&file)).await.ok()
 }
 
 
@@ -30,7 +40,7 @@ pub fn start_api() {
         .expect("create tokio runtime")
         .block_on(async move {
             let _ = rocket::build()
-            .mount("/", rocket::routes![index, get_file])
+            .mount("/", rocket::routes![index, get_file, project, get_project_image])
             .attach(Template::fairing())
             //.manage()
             .launch()

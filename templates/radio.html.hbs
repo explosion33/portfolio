@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Portfolio" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <script
+      src="https://kit.fontawesome.com/fa62c117c7.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="static/styles.css" />
+    <title>Ethan Armstrong</title>
+  </head>
+  <body class="light" id="top">
+    <header class="header center">
+      <h3>
+        <a href="/" class="link"
+          >EA.</a
+        >
+      </h3>
+
+      <nav class="nav center">
+        <button type="button" aria-label="toggle theme" class="btn btn--icon">
+          <i aria-hidden="true" id="btn-theme" class="fas fa-moon"></i>
+        </button>
+
+        <button
+          type="button"
+          aria-label="toggle navigation"
+          class="btn btn--icon nav__hamburger"
+        >
+          <i aria-hidden="true" class="fas fa-bars"></i>
+        </button>
+      </nav>
+    </header>
+
+    <main>
+      <!-- Title / Links -->
+      <div class="about center">
+        <h1>VHF Radio PCB</h1>
+        <div class="about__contact center">
+            <a
+              href="https://github.com/stars/explosion33/lists/cc1200-radio-project"
+              aria-label="source code"
+              class="link link--icon"
+            >
+              <i aria-hidden="true" class="fab fa-github"></i>
+            </a>
+        </div>
+      </div>
+
+      <!-- Text Block -->
+      <div class="about center">
+        <h3>Purpose</h3>
+        <p class="project__description">
+          One of the objectives for high powered rocketry as well as other
+          surface-based projects is to have the ability to send data point
+          to point between locations. The current market for RF communications
+          is currently extremely limited. Using a WIFI or Bluetooth based
+          solution is acceptable for short range data transfer, i.e., ground
+          station to launch pad, however, does not suffice when dealing with
+          distances in the 10,000 foot range. The other option is to buy a low
+          power sub-gigahertz device, while gaining slightly more distance, is
+          still nowhere near the requirements for some more advanced projects.
+          The solution to this problem was to design a custom sub-gigahertz
+          high power radio transceiver operating in the 2 meter and 70-centimeter band.
+    
+        </p>
+      </div>
+
+      <!-- Text Block -->
+      <div class="about center">
+        <h3>Hardware</h3>
+        <p class="project__description">
+          To solve for this problem required a custom built platform that would allow
+          for on board computational control, signal generation / propagation and networked
+          interface protocols.  To achieve this, I’ve used a combination of the ST Microelectronics
+          STM32 which is a microcontroller IC that enable I2C/SPI communication and USB protocols. The
+          STM32 is used to control a Texas Instruments signal generator, the CC1200.  The CC1200 can
+          generate carrier signals and then attach ‘data’ to the stream.  The CC1200 is capable of both
+          transmission and receiving data streams.
+    
+        </p>
+      </div>
+
+      <!-- Image Block -->
+      <section id="projects" class="section projects">
+        <div class="projects__grid">
+            <div class="image">
+              <img width="500" src="radio/img/finished_board_1.jpg">
+            </div>
+            <div class="image">
+              <img height="375" src="radio/img/finished_board_2.jpg">
+            </div>
+        </div>
+      </section>
+
+      <!-- Text Block -->
+      <div class="about center">
+        <p class="project__description">
+          Solving this problem required the use of a custom-made PCB
+          that would be able to handle the encoding and decoding of packets,
+          as well as easy switching between transmitter and receiver operations.
+          To achieve this, I used a combination of ST Microelectronics’ STM32 in
+          conjunction with Texas Instruments’ CC1200 transceiver chip. The STM32
+          provides an abstraction layer between the CC1200 and external devices
+          either over Serial or I2C connections, the end goal being a module that
+          could be easily integrated into any project.    
+        </p>
+        <p>
+          Using KiCad to create the schematics and PCB layouts, I proceeded to
+          tackle a myriad of technical hurdles in relation to the simple setup
+          between the two chips. The CC1200 needed to be tuned with a variety
+          of different oscillators and inductors, power supply needed to be routed
+          from the complicated. Trace length and spacing needed to be considered
+          to avoid RF coupling. The USB-C port needed to be configured for UART
+          communications, as well as operate at a reduced voltage.
+        </p>
+      </div>
+
+      <!-- Text Block -->
+      <div class="about center">
+        <p>
+          Using KiCad to create the schematics and PCB layouts, I proceeded to
+          tackle a myriad of technical hurdles in relation to the simple setup
+          between the two chips. The CC1200 needed to be tuned with a variety
+          of different oscillators and inductors, power supply needed to be routed
+          from the complicated. Trace length and spacing needed to be considered
+          to avoid RF coupling. The USB-C port needed to be configured for UART
+          communications, as well as operate at a reduced voltage.
+        </p>
+      </div>
+
+      <!-- Image Block -->
+      <section id="projects" class="section projects">
+        <div class="projects__grid">
+            <div class="image">
+              <img width="350" src="radio/img/sch.png">
+            </div>
+            <div class="image">
+              <img height="328.65" src="radio/img/pcb.png">
+            </div>
+        </div>
+      </section>
+
+      <!-- Text Block -->
+      <div class="about center">
+        <h3>Software</h3>
+        <p class="project__description">
+          Starting off the software, I needed to have an interface running on the
+          STM32 that could both communicate with its own peripherals as well as
+          external devises. I chose MBED OS to leverage the work of Jamie Smith
+          (links on the GitHub repository), who wrote a library to handle the direct
+          register access on the CC1200, as well as to easily setup all GPIO options
+          regardless of chip.
+        </p>
+      </div>
+
+      <!-- Text Block -->
+      <div class="about center">
+        <p>
+          Building off of Jamie’s work I created a higher-level class to
+          handle the transmit and receive operations for my specific use cases.
+          I then proceeded to design and implement a communication protocol to
+          expose all of the boards features to the end-user, via I2C and Serial.
+          Next, I created a set of external libraries, written in Rust,
+          to allow for any device, such as my laptop or raspberry pi,
+          to send commands and read data from the PCB. I created a crate,
+          or package, so that for any future projects it is trivial to add
+          radio functionality by just plugging in the device and downloading the package.
+        </p>
+      </div>
+
+      <!-- Text Block -->
+      <div class="about center">
+        <p>
+          This can be seen is use with my project <a class="link link--nav" href="https://github.com/explosion33/RGRadioApi">"RGRadioAPI"</a>, which captures the
+          radio data into an API layer so it can be easily displayed and accessed
+          on a local network.
+        </p>
+      </div>
+
+    <footer class="footer">
+    </footer>
+
+    <div class="scroll-container">
+    <div class="scroll-top">
+      <a aria-label="Scroll up" href="#top">
+        <i aria-hidden="true" class="fas fa-arrow-up"></i>
+      </a>
+    </div>
+    </div>
+
+    <script src="static/script.js"></script>
+  </body>
+</html>
