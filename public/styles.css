@@ -83,6 +83,10 @@
   ul {
     list-style-type: none;
   }
+
+  .bullets {
+    list-style-type: circle;
+  }
   
   a {
     text-decoration: none;

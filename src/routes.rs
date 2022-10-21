@@ -11,7 +11,7 @@ use rocket_dyn_templates::Template;
 
 #[rocket::get("/")]
 fn index() -> Template {
-    Template::render("test", rocket_dyn_templates::context!{ field: "value" })
+    Template::render("index", rocket_dyn_templates::context!{ field: "value" })
 }
 
 #[rocket::get("/<project>")]

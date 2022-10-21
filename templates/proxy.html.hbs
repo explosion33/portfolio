@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Portfolio" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <script
+      src="https://kit.fontawesome.com/fa62c117c7.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="static/styles.css" />
+    <title>Ethan Armstrong</title>
+  </head>
+  <body class="light" id="top">
+    <header class="header center">
+      <h3>
+        <a href="/" class="link"
+          >EA.</a
+        >
+      </h3>
+
+      <nav class="nav center">
+        <button type="button" aria-label="toggle theme" class="btn btn--icon">
+          <i aria-hidden="true" id="btn-theme" class="fas fa-moon"></i>
+        </button>
+
+        <button
+          type="button"
+          aria-label="toggle navigation"
+          class="btn btn--icon nav__hamburger"
+        >
+          <i aria-hidden="true" class="fas fa-bars"></i>
+        </button>
+      </nav>
+    </header>
+
+    <main>
+      <!-- Title / Links -->
+      <div class="about center">
+        <h1>Proxy Server</h1>
+        <div class="about__contact center">
+            <a
+              href="https://github.com/explosion33/proxy_server"
+              aria-label="source code"
+              class="link link--icon"
+            >
+              <i aria-hidden="true" class="fab fa-github"></i>
+            </a>
+        </div>
+      </div>
+
+      <!-- Text Block -->
+      <div class="about center">
+        <p class="project__description">
+         As I was getting into web-app development, as well as more local
+         networking with hosting servers, services, and the like, I found
+         it increasingly difficult to navigate a dynamic public IP with a
+         combination of random ports for each random application.
+        </p>
+      </div>
+
+      <!-- Text Block -->
+      <div class="about center">
+        <p class="project__description">
+          This began the long process of creating a better open port and routing system.
+          I first tackled the problem of a dynamic home IP by registering for the NO-IP service,
+          which updates a domain name dynamically based on your current public IP. However, this
+          was not enough … External sites still needed ports to be accessed and I wanted a cleaner
+          solution.
+        </p>
+      </div>
+
+      <!-- Text Block -->
+      <div class="about center">
+        <p class="project__description">
+          This is where I ran into NGINX. I built a NGINX instance on an external server.
+          I configured this instance to proxy subdomains off of our main domain to the
+          dynamic Ip and its given port. This is an insanely complex solution that specifically
+          deals with the issues of hosting on a dynamic Ip address. However, it gives great
+          results … Now I have hosted sites such as ethan.armstronglabs.net instead of
+          mypublicip:8080.
+        </p>
+      </div>
+
+      <!-- Text Block -->
+      <div class="about center">
+        <p>
+          Further diving into the project, I also took the time to fully integrate a custom
+          CI / CD operation to fully automate the task of modifying the proxy list. I did
+          this by creating a custom python / flask script on the external server that listens
+          for incoming HTTP post requests. I then have the script stop the proxy, pull the
+          latest version from GitHub, and re-initialize the proxy. I tied this all-in using
+          GitHub workflows to create a fully autonomous and easy to use system for managing
+          websites.
+        </p>
+      </div>
+
+
+    <footer class="footer">
+    </footer>
+
+    <div class="scroll-container">
+    <div class="scroll-top">
+      <a aria-label="Scroll up" href="#top">
+        <i aria-hidden="true" class="fas fa-arrow-up"></i>
+      </a>
+    </div>
+    </div>
+
+    <script src="static/script.js"></script>
+  </body>
+</html>

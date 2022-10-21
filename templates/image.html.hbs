@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Portfolio" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <script
+      src="https://kit.fontawesome.com/fa62c117c7.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="static/styles.css" />
+    <title>Ethan Armstrong</title>
+  </head>
+  <body class="light" id="top">
+    <header class="header center">
+      <h3>
+        <a href="/" class="link"
+          >EA.</a
+        >
+      </h3>
+
+      <nav class="nav center">
+        <button type="button" aria-label="toggle theme" class="btn btn--icon">
+          <i aria-hidden="true" id="btn-theme" class="fas fa-moon"></i>
+        </button>
+
+        <button
+          type="button"
+          aria-label="toggle navigation"
+          class="btn btn--icon nav__hamburger"
+        >
+          <i aria-hidden="true" class="fas fa-bars"></i>
+        </button>
+      </nav>
+    </header>
+
+    <main>
+      <!-- Title / Links -->
+      <div class="about center">
+        <h1>Image Converter</h1>
+        <div class="about__contact center">
+            <a
+              href="https://github.com/explosion33/imageConverter"
+              aria-label="source code"
+              class="link link--icon"
+            >
+              <i aria-hidden="true" class="fab fa-github"></i>
+            </a>
+        </div>
+      </div>
+
+      <!-- Text Block -->
+      <div class="about center">
+        <p class="project__description">
+         I decided to write Image Converter to fill a very specific gap in my workflow.
+         I often take pictures on my phone then upload them to my computer for projects.
+         My phone saves photos in either HEIC or HEIF which is generally incompatible
+         with windows. At this point I was fed up having to open some external website
+         every time I needed a photo … So, I decided to make my own application.
+        </p>
+      </div>
+
+      <!-- Text Block -->
+      <div class="about center">
+        <p class="project__description">
+          I settled on creating a desktop app with QT and C++. At this point in time
+          this was my first major GUI based desktop application. However, I think the
+          results turned out great.
+        </p>
+      </div>
+
+      <!-- Image Block -->
+      <section id="projects" class="section projects">
+        <div class="projects__grid">
+            <div class="image">
+              <img width="500" src="image/img/app.png">
+            </div>
+        </div>
+      </section>
+
+      <!-- Text Block -->
+      <div class="about center">
+        <p class="project__description">
+          It was a challenge to create a responsive GUI that could still
+          process images at the same time. This involved me figuring out
+          how to use threads with C++, and how to manage objects and data
+          across them. I also struggled to find libraries for a few of the
+          formats I was trying to support. This ended up a great opportunity
+          for me to research how the given image formats worked and re-create
+          an encoder and decoder myself.
+        </p>
+      </div>
+
+      <!-- Text Block -->
+      <div class="about center">
+        <p>
+          In the end I ended up with a lot of knowledge on desktop GUI systems,
+          C++ threading, and image formats and handling.
+        </p>
+      </div>
+
+
+    <footer class="footer">
+    </footer>
+
+    <div class="scroll-container">
+    <div class="scroll-top">
+      <a aria-label="Scroll up" href="#top">
+        <i aria-hidden="true" class="fas fa-arrow-up"></i>
+      </a>
+    </div>
+    </div>
+
+    <script src="static/script.js"></script>
+  </body>
+</html>

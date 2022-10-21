@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Portfolio" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <script
+      src="https://kit.fontawesome.com/fa62c117c7.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="static/styles.css" />
+    <title>Ethan Armstrong</title>
+  </head>
+  <body class="light" id="top">
+    <header class="header center">
+      <h3>
+        <a href="/" class="link"
+          >EA.</a
+        >
+      </h3>
+
+      <nav class="nav center">
+        <button type="button" aria-label="toggle theme" class="btn btn--icon">
+          <i aria-hidden="true" id="btn-theme" class="fas fa-moon"></i>
+        </button>
+
+        <button
+          type="button"
+          aria-label="toggle navigation"
+          class="btn btn--icon nav__hamburger"
+        >
+          <i aria-hidden="true" class="fas fa-bars"></i>
+        </button>
+      </nav>
+    </header>
+
+    <main>
+      <!-- Title / Links -->
+      <div class="about center">
+        <h1>Uploader</h1>
+        <div class="about__contact center">
+            <a
+              href="https://github.com/explosion33/uploadServer"
+              aria-label="source code"
+              class="link link--icon"
+            >
+              <i aria-hidden="true" class="fab fa-github"></i>
+            </a>
+            <a
+              href="http://upload.armstronglabs.net"
+              aria-label="live preview"
+              class="link link--icon"
+            >
+              <i aria-hidden="true" class="fas fa-external-link-alt"></i>
+            </a>
+        </div>
+      </div>
+
+      <!-- Text Block -->
+      <div class="about center">
+        <h3>Purpose</h3>
+        <p class="project__description">
+          Uploader is a relatively simple concept, but it fills a
+          very important gap in current file sharing methods. The
+          objective of this project was to solve the real-world problem
+          that is transferring large files between devices, with relative
+          ease. Applications like Dropbox or Gmail either have significant
+          client applications or significant file size limitations.
+        </p>
+      </div>
+
+      <div class="about center">
+        <p class="project__description">
+          Uploader allows for an arbitrary large file to be uploaded to a
+          server, which responds with a download link containing a unique
+          file token. This link can then be shared through any medium and
+          downloaded on the new device.
+        </p>
+      </div>
+
+      <!-- Image Block -->
+      <section id="projects" class="section projects">
+        <div class="projects__grid">
+            <div class="image">
+              <img width="500" src="uploader/img/site.png">
+            </div>
+        </div>
+      </section>
+
+      <!-- Text Block -->
+      <div class="about center">
+        <h3>Technology</h3>
+        <p class="project__description">
+          The overall stack is built around Flask (Python), using HTML, Jinja,
+          and Bootstrap to achieve a scalable site that still looks good. The
+          site also utilizes vanilla JavaScript along with AJAX to handle asynchronous
+          file post requests, as well as the URL callback upon upload completion.
+          The server runs behind an NGINX and UWSGI instance, to handle efficient
+          routing with multiple requests at once.
+        </p>
+      </div>
+
+      
+      <!-- Text Block -->
+      <div class="about center">
+        <p class="project__description">
+          Another interesting note is that this site was fully developed around CI / CD.
+          The application is built into a Docker container hosted on Docker Hub. I use a
+          webhook system to notify the Kubernetes cluster that runs the site, that a new
+          image is ready to be downloaded.  
+        </p>
+      </div>
+
+      <!-- Text Block -->
+      <div class="about center">
+        <p>
+          This was extended only to meet my personal needs on file transfers – there is
+          plenty of room to develop logins for retention of files by user, file inventory
+          interfaces and some level of administrative oversight such as retention, use and
+          access.
+        </p>
+      </div>
+
+    <footer class="footer">
+    </footer>
+
+    <div class="scroll-container">
+    <div class="scroll-top">
+      <a aria-label="Scroll up" href="#top">
+        <i aria-hidden="true" class="fas fa-arrow-up"></i>
+      </a>
+    </div>
+    </div>
+
+    <script src="static/script.js"></script>
+  </body>
+</html>

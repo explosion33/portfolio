@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Portfolio" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <script
+      src="https://kit.fontawesome.com/fa62c117c7.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="static/styles.css" />
+    <title>Ethan Armstrong</title>
+  </head>
+  <body class="light" id="top">
+    <header class="header center">
+      <h3>
+        <a href="/" class="link"
+          >EA.</a
+        >
+      </h3>
+
+      <nav class="nav center">
+        <button type="button" aria-label="toggle theme" class="btn btn--icon">
+          <i aria-hidden="true" id="btn-theme" class="fas fa-moon"></i>
+        </button>
+
+        <button
+          type="button"
+          aria-label="toggle navigation"
+          class="btn btn--icon nav__hamburger"
+        >
+          <i aria-hidden="true" class="fas fa-bars"></i>
+        </button>
+      </nav>
+    </header>
+
+    <main>
+      <!-- Title / Links -->
+      <div class="about center">
+        <h1>SARP Drone and PLOP</h1>
+        <div class="about__contact center">
+            <a
+              href="https://github.com/stars/explosion33/lists/sarp"
+              aria-label="source code"
+              class="link link--icon"
+            >
+              <i aria-hidden="true" class="fab fa-github"></i>
+            </a>
+        </div>
+      </div>
+
+      <!-- Text Block -->
+      <div class="about center">
+        <p class="project__description">
+          At my time so far at University of Washington’s Society for
+          Advanced Rocket Propulsion (SARP), I have been apart of two
+          major projects. As the Payload Controls team lead, I have
+          been in charge of the development of controls systems for
+          the various payloads that will be carries aboard the SARP
+          2025 launch vehicle.
+        </p>
+      </div>
+
+      <!-- Text Block -->
+      <div class="about center">
+        <h3>Drone</h3>
+        <p class="project__description">
+          While different both projects cover similar objectives containing but
+          not limited to the following.
+          <ul class="bullets">
+            <li>Sensor data gathering, filtering</li>
+            <li>Fusing multiple sensors</li>
+            <li>PID, LQR, and LQG flight controllers</li>
+            <li>Control of hardware devices and control surfaces</li>
+            <li>Remote monitoring and control solutions</li>
+          </ul>
+    
+        </p>
+      </div>
+
+      <!-- Image Block -->
+      <section id="projects" class="section projects">
+        <div class="projects__grid">
+            <div class="image">
+              <img width="500" src="sarp/img/drop.gif">
+            </div>
+            <div class="image">
+              <img height="281.25" src="sarp/img/render.jpg">
+            </div>
+        </div>
+      </section>
+
+      <!-- Text Block -->
+      <div class="about center">
+        <p class="project__description">
+          In 2021, I took up the controls lead position and was tasked with
+          simply “figuring out how to fly our drone”. With the help of my
+          team, I designed from scratch multiple solutions to both vertically
+          stabilize and have our drone follow a specific flight path.
+        </p>
+      </div>
+
+      <!-- Text Block -->
+      <div class="about center">
+        <p>
+          I designed the code base PIPayload, which is written mostly in python,
+          handles hardware control, auto pilot, and some simple ground station
+          communications. This project, while implemented poorly, displays
+          significant research and development into the controls field. I created
+          a basic working PID feedback controller, as well as implemented basic
+          filtering and fusing. In the area of remote communications, I implemented
+          a WIFI ad hoc network to transmit commands and data.
+        </p>
+      </div>
+
+      <!-- Text Block -->
+      <div class="about center">
+        <h3>P.L.O.P.</h3>
+        <p class="project__description">
+          Moving into 2022, We are now creating a Propulsively Landed Microgravity
+          Platform, or PLOP. Leaning into what I learned last year, we are going
+          above and beyond to ensure a successful launch. This year we are working
+          to implement better filtering and fusing algorithms in the form of a
+          Kalman filter. We are also moving away from feedback controllers to create
+          an LQR or LQG predictive control model. Finally, we are writing all of our
+          code in Rust, which will provide us assurance that our control systems won’t
+          error out at the most critical times. On top of that, we are implementing my
+          VHF Radio PCB to ensure consistent communication at extreme ranges.
+        </p>
+      </div>
+
+      <!-- Text Block -->
+      <div class="about center">
+        <p class="project__description">
+          The project is still underway however, we have already made significant progress.
+          Thus far, we have re-written the majority of our sensor code in Rust and created
+          a unique data transmission protocol for sending flight data over VHF while
+          maintaining a constant connection. We are currently working on writing a Kalman
+          filter and designing a basic PID algorithm for testing purposes, and are on track
+          to get the majority of the project done by the start of 2023.
+        </p>
+      </div>
+
+    <footer class="footer">
+    </footer>
+
+    <div class="scroll-container">
+    <div class="scroll-top">
+      <a aria-label="Scroll up" href="#top">
+        <i aria-hidden="true" class="fas fa-arrow-up"></i>
+      </a>
+    </div>
+    </div>
+
+    <script src="static/script.js"></script>
+  </body>
+</html>
