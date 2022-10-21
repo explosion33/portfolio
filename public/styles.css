@@ -87,6 +87,12 @@
   .bullets {
     list-style-type: circle;
   }
+
+  img {
+    max-width: 100%;
+    height: auto;
+    width: auto\9; /* ie8 */
+}
   
   a {
     text-decoration: none;
