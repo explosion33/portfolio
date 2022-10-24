@@ -15,4 +15,6 @@ RUN chmod 755 /home/portfolio
 
 ENV PATH="${PATH}:/home"
 
+EXPOSE 80
+
 CMD ["portfolio"]
