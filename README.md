@@ -7,3 +7,11 @@
 ```docker build . -t explosion33/portfolio:latest```
 
 ```docker push```
+
+then to run on server
+
+```docker pull explosion33/portfolio```
+
+```docker run -p external:internal --name portfolio explosion33/portfolio```
+
+currently: `internal = 80`
