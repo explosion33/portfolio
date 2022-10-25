@@ -55,20 +55,14 @@
         </div>
       </div>
 
-      <!-- Text Block -->
-      <div class="about center">
-        <p class="project__description">
-         Starting in high school, I began construction of my own class 1 capable high-power rocket.
-         In this project I did everything from epoxying the airframe together, to designing avionics
-         electronics systems, to rigging parachutes.
-        </p>
-      </div>
-
       <!-- Image Block -->
       <section id="projects" class="section projects">
         <div class="projects__grid">
             <div class="image">
-              <img width="500" src="rocket/img/place.jpg">
+              <img width="500" src="rocket/img/rocket_body.webp">
+            </div>
+            <div class="image">
+              <img width="500" src="rocket/img/avbay.webp">
             </div>
         </div>
       </section>
@@ -76,9 +70,33 @@
       <!-- Text Block -->
       <div class="about center">
         <p class="project__description">
-          However, the part I’m most proud of is the avionics package and software system.
-          I designed a raspberry pi-based flight computer, coupled with sensors, power supply
-          management, and a custom charge ignition board, to handle dual deployment.
+         Starting in high school, I began construction of my own class 1 capable high-power rocket.
+         In this project I did everything from epoxying the airframe together, to designing avionics
+         electronics systems, to rigging parachutes.
+
+         I ended up taking my passion for rocketry and formed a club at my High School, ANARC.
+         Over the course of the school-year and summer we built and launched five high power
+         rockets.
+        </p>
+      </div>
+
+      <!-- Image Block -->
+      <section id="projects" class="section projects">
+        <div class="projects__grid">
+            <div class="image">
+              <img width="500" src="rocket/img/group.webp">
+            </div>
+        </div>
+      </section>
+      
+
+      <!-- Text Block -->
+      <div class="about center">
+        <p class="project__description">
+          Over the course of all my rocket builds, the part I’m most proud of is the avionics
+          package and software system. I designed a raspberry pi-based flight computer,
+          coupled with sensors, power supply management, and a custom charge ignition board,
+          to handle dual deployment.
         </p>
       </div>
 
@@ -109,15 +127,13 @@
       <!-- Text Block -->
       <div class="about center">
         <p class="project__description">
-          I wrote some simple Rust code to detect the rocket’s
-          apogee as well as handle remote configuration, arming,
-          and sensor data monitoring via RocketGround.
-        </p>
-      </div>
+          I wrote the software in Rust and compiled it onto the raspberry pi.
+          The software utilizes information from a barometer to estimate the
+          rocket's current height. Once it detects an apogee it fires the
+          igniters via my custom igniter board. My software stack also
+          handles remote ignition and data monitoring, an arming sequence
+          built with a finite state machine, and overall data logging.
 
-      <!-- Text Block -->
-      <div class="about center">
-        <p>
           Overall, this entire project was a complete exercise in all the
           disciplines of engineering. It required aerodynamic and structural
           design, and simulations. 3D modeling and printing. PCB creation.
