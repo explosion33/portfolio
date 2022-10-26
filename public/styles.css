@@ -106,6 +106,10 @@
     h1 {
       font-size: 2.6rem;
     }
+
+    .bullets {
+      list-style-type: circle;
+    }
   }
   
   /*===================
@@ -431,5 +435,10 @@
   
     .scroll-container {
       display: none;
+    }
+
+    .bullets {
+      list-style-type: circle;
+      list-style: inside;
     }
   }
