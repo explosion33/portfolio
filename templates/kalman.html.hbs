@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Portfolio" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <script
+      src="https://kit.fontawesome.com/fa62c117c7.js"
+      crossorigin="anonymous"
+    ></script>
+     <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="stylesheet" href="static/styles.css" />
+    <title>Ethan Armstrong</title>
+  </head>
+  <body class="light" id="top">
+    <header class="header center">
+      <h3>
+        <a href="/" class="link"
+          >EA.</a
+        >
+      </h3>
+
+      <nav class="nav center">
+        <button type="button" aria-label="toggle theme" class="btn btn--icon">
+          <i aria-hidden="true" id="btn-theme" class="fas fa-moon"></i>
+        </button>
+
+        <button
+          type="button"
+          aria-label="toggle navigation"
+          class="btn btn--icon nav__hamburger"
+        >
+          <i aria-hidden="true" class="fas fa-bars"></i>
+        </button>
+      </nav>
+    </header>
+
+    <main>
+      <!-- Title / Links -->
+      <div class="about center">
+        <h1>Creating a Kalman Filter</h1>
+      </div>
+
+      <!-- Title / Links -->
+      <div class="about center">
+        <h3>Problem and Solution</h1>
+      </div>
+
+      <!-- Text Block -->
+      <div class="about center">
+        <p class="project__description">
+            In order to accurately time the motion of control
+            surfaces and their actuators (motors or parachutes)
+            on PLOP, or any future rockets / drones we need to
+            be able to accurately determine the crafts altitude.
+            While there are many individual sensors that can
+            achieve this they all have their downsides when it
+            comes to determining accurate altitude during various
+            stages of flight. A GPS can determine altitude extremely
+            accurately but only once every 5 seconds. A barometer is
+            a bit faster but less accurate and will fluctuate based
+            on other atmospheric conditions besides altitude. Finally
+            an accelerometer has the fastest update rate but due to
+            errors that accumulated as a result of constants during
+            a double integration causes the computations to be very
+            inaccurate after just a brief amount of time.
+        </p>
+      </div>
+
+        <!-- Text Block -->
+      <div class="about center">
+        <p class="project__description">
+            Enter the Kalman Filter, a type of filter designed to combine
+            different sensor measurements based on a weighted averaging
+            system. This filter has two actions predicting and updating.
+            Predicting is used for sensors like the accelerometer which
+            do not measure altitude directly. Updating is used with sensors
+            like the GPS which can measure altitude directly. These two
+            actions can more accurately combine data between multiple sensors
+            to get a better estimate of the systems’ altitude.
+        </p>
+      </div>
+
+      <!-- Title / Links -->
+      <div class="about center">
+        <h3>Getting Started</h1>
+      </div>
+
+        <!-- Text Block -->
+      <div class="about center">
+        <p class="project__description">
+            To get started I created a wrapper class for each sensor to be
+            used (a barometer, a GPS, and an IMU).  This wrapper class can
+            then handle internal sensor operations at an abstracted level.
+            These operations include, but are not limited too, both internal
+            sensor calibrations as well as external sensor calibrations,
+            saving calibration data, and auxiliary calculations, such as
+            using pressure and temperature data streams to compute altitude.
+            This was all done with relative ease and consisted of consulting
+            each sensor libraries docs to create the abstraction layer.
+        </p>
+      </div>
+
+       <!-- Text Block -->
+      <div class="about center">
+        <p class="project__description">
+            Next I moved on to tackling the first big problem, the acceleration
+            data returned from the IMU is always returned with respect to the
+            current orientation of the sensor. This is a problem because if the
+            sensor is rotated 90° and moved upwards with respect to the ground
+            the accelerometer would report the vehicle as moving right. To
+            compensate for this we need to rotate the sensor acceleration
+            data by the sensors rotation quaternion.
+        </p>
+      </div>
+
+       <!-- Text Block -->
+      <div class="about center">
+        <p class="project__description">
+            I initially attempted to do the quaternion math directly, which involved
+            converting the quaternion to a rotation matrix then multiplying the vector,
+            but this lead to inconsistent rotations. The hurdle here really is a
+            cost/benefit analysis, the direct math is intricate and complex whereby
+            small deviations in the computation results in material errors in the results.
+            So, the cost of manually computing these equations is relatively high and the
+            adjusted benefit (error rate adjusted) is relatively low.  I decided to use
+            an external library to handle the quaternion rotations but this still lead
+            to similar problems as before. The interesting point being that the
+            extrapolation of errors between both the direct math computations and
+            the third party libraries where similar.  Over the course of a week,
+            I attempted tweaking and testing different rotations and settings with no
+            luck. However, I eventually found the mistake, the IMU and the quaternion
+            library both used different axis to represent their quaternions, the IMU
+            utilizes an XYZ system whilst the library uses a ZYX system, after fixing
+            these issues I ended up with accurate rotations on the IMU.  A project for
+            a future date would be to ensure consistent axis orientation in the manual
+            calculations to see if there resolve the error levels.
+        </p>
+      </div>
+
+      <!-- Title / Links -->
+      <div class="about center">
+        <h3>Further Prepping Sensor Data</h1>
+      </div>
+
+      <div class="about center">
+        <p class="project__description">
+            As discussed above, in order to add sensors into a Kalman Filter the variance
+            of the sensor needs to be known. My initial plan to achieve this was to take
+            10 consecutive readings from each sensor, then use the mean and standard
+            deviation within the filter.
+        </p>
+      </div>
+
+      <div class="about center">
+        <p class="project__description">
+            In order to not have a 10x increase in speed, as well as to handle the sensors
+            difference in data transmission rate I decided to move the two slower sensors,
+            GPS and Barometer, into separate threads so the main loop would not block when
+            waiting for these devices. I was able to successfully place the GPS sampling
+            into a separate thread due to the fact that is transmits over serial instead
+            of I2C, however the barometer would not produce accurate data within its
+            separate thread. As it turns out, this is due to the IMU and barometer sharing
+            the same I2C line making it impossible for both sensors to run asynchronously
+            with each other.
+        </p>
+      </div>
+
+      <div class="about center">
+        <p class="project__description">
+            This being the case I removed the asynchronous barometer code. For now both the
+            IMU and Barometer will read data within the same thread, however, it is unknown
+            if this has an affect on the potential data sampling rate. In the future I plan
+            on setting the barometer on a separate I2C line where it could then run
+            asynchronously with the IMU.
+        </p>
+      </div>
+
+      <div class="about center">
+        <p class="project__description">
+            Finally, due to the slower processes speeds when taking 10 measurements instead
+            of one for each sensor in the same thread I removed the variation calculation
+            based on 10 measurements at a time and instead settled for an external sensor
+            deviation that is determined before running the program.  This is achieved by
+            running the system in a static state and measuring deviations and using known
+            constants at the time of test (e.g., known altitude above MSL).
+        </p>
+      </div>
+
+      <!-- Title / Links -->
+      <div class="about center">
+        <h3>Basic Kalman Filter</h1>
+      </div>
+
+      <div class="about center">
+        <p class="project__description">
+            Now that I had all sensors able to work as fast as possible given hardware
+            constraints (both sensor and MPU/SBC), and a variation for each I started
+            with implementing a Kalman Filter for the system altitude calculations.
+            I created a basic filter class that only implements update and predict
+            functions. I then incorporated the IMU into the filter by tracking the
+            current velocity and predicting the altitude based on the
+            equation
+            
+        </p>
+      </div>
+
+    <div class="math">\[\Delta Z = V*dt + \frac{1}{2}*a*{dt}^2\]</div>
+      
+
+      <div class="about center">
+        <p class="project__description">
+            This produced promising results but was still unreasonably inaccurate,
+            namely due to error propagation when going from acceleration to velocity and
+            velocity to position, the velocity variable would accumulate error 
+            over time absent a mitigating and correcting effort.
+        </p>
+      </div>
+
+      <div class="about center">
+        <p class="project__description">
+            The first attempted to fix this was to implemented a rolling average with a
+            window of 10 to both the barometer and accelerometer. However I realized that
+            I needed to implement the rest of the sensors before experimenting with the
+            pre-processesing of data.
+        </p>
+      </div>
+
+      <div class="about center">
+        <p class="project__description">
+            Next I decided to integrate the GPS’s altitude to the filter, this created
+            more initial stability however, the system still ended up drifting once the
+            accumulated velocity reached ~1000 m/s. I decided to crudely use the GPS’s
+            speed measurement to constrain the velocity variable. This was poorly done
+            however, because the velocity variable assumes the Z direction while the GPS’s
+            speed contains no direction data. Although poorly implemented, this still
+            resulted in better results whilst at rest due to a velocity of 0 having no
+            vector component.
+        </p>
+      </div>
+
+
+        
+      
+      <!-- Text Block -->
+      <div class="about center">
+        <p class="project__description">
+          I settled on creating a desktop app with QT and C++. At this point in time
+          this was my first major GUI based desktop application. However, I think the
+          results turned out great.
+        </p>
+      </div>
+
+      
+
+      <!-- Text Block -->
+      <div class="about center">
+        <p class="project__description">
+          It was a challenge to create a responsive GUI that could still
+          process images at the same time. This involved me figuring out
+          how to use threads with C++, and how to manage objects and data
+          across them. I also struggled to find libraries for a few of the
+          formats I was trying to support. This ended up a great opportunity
+          for me to research how the given image formats worked and re-create
+          an encoder and decoder myself.
+        </p>
+      </div>
+
+      <!-- Title / Links -->
+      <div class="about center">
+        <h3>Advanced Kalman Filter</h1>
+      </div>
+
+      <!-- Text Block -->
+      <div class="about center">
+        <p class="project__description">
+            With a basic Kalman Filter working, and well documented error vectors,
+            I decided to try and improve the entire system. I first started by
+            realizing that I was adjusting the velocity variable with multiple
+            sensors without any regard for their accuracy. This lead me to use
+            another Filter object to track the velocity. I then fixed the GPS
+            code to determine the Z component of its speed reading by estimating
+            the velocity direction using the position change between two GPS
+            readings. Next I did a similar velocity estimate for the barometer
+            by measuring the distance traveled and time between two barometer
+            readings.
+        </p>
+      </div>
+
+      <!-- Text Block -->
+      <div class="about center">
+        <p class="project__description">
+            It was at this point I realized I also needed to actually set the
+            variability constants for the accelerometer and barometer. To do
+            this I decided I wanted to calculate this constant at the startup
+            of the program. I did this by taking ~1000 measurements from each
+            sensor, and ensuring that the data follows a Gaussian distribution
+            about the mean, which they did. This meant I was able to calculate
+            the standard deviation of ~1000 measurements at the start of the
+            program and later use that variance in the Kalman calculations.
+        </p>
+      </div>
+
+      <!-- Title / Links -->
+      <div class="about center">
+        <h3>Testing and Tuning</h1>
+      </div>
+
+
+      <!-- Text Block -->
+      <div class="about center">
+        <p class="project__description">
+            Now that all sensors are contributing to both of the filters all
+            that is left to do is tune the filter. This is done by adjusting
+            the noise covariance multipliers (adds extra variance on top of
+            the calculated variance), as well as modifying the rolling average
+            window size for each sensor. Currently I am working on tuning the
+            sensor to achieve as stable of a state as possible when at rest.
+            But in the future (once a proper mounting system and enclosure
+            are produced) I would like to move on to drop / toss tests where
+            I can hope to measure a parabola.
+        </p>
+      </div>
+
+      <!-- Image Block -->
+      <section id="projects" class="section projects">
+        <div class="projects__grid">
+            <div class="image">
+              <img width="500" src="img/kalman/kt1.png">
+            </div>
+            <div class="image">
+              <img width="400" src="img/kalman/kt2.png">
+            </div>
+        </div>
+      </section>
+
+
+    <footer class="footer">
+    </footer>
+
+    <div class="scroll-container">
+    <div class="scroll-top">
+      <a aria-label="Scroll up" href="#top">
+        <i aria-hidden="true" class="fas fa-arrow-up"></i>
+      </a>
+    </div>
+    </div>
+
+    <script src="static/script.js"></script>
+  </body>
+</html>
