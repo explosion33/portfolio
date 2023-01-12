@@ -45,6 +45,9 @@
       <!-- Title / Links -->
       <div class="about center">
         <h1>Creating a Kalman Filter</h1>
+        <span style="margin-top: 0.5em;">
+        (November 2022)
+        </span>
       </div>
 
       <!-- Title / Links -->
@@ -330,6 +333,67 @@
             </div>
         </div>
       </section>
+
+      <!-- Title / Links -->
+      <div class="about center">
+        <h3>More Fixes</h1>
+        <span style="margin-top: 0.5em;">
+        (January 2023)
+        </span>
+      </div>
+
+
+      <!-- Text Block -->
+      <div class="about center">
+        <p class="project__description">
+          In between testing I decided to take a crack at solving the issue
+          discussed above where the IMU and Barometer cannot run
+          asynchronously due to being on the same time. To test the effect
+          this has on the filter I decided to implement a software based
+          solution before a hardware based one.
+        </p>
+      </div>
+
+      <!-- Text Block -->
+      <div class="about center">
+        <p class="project__description">
+          I began by modeling the sample frequency of each sensor by making
+          200 measurements and recording the time it took, I took the ratio
+          of the frequencies between the two sensors and adjusted the sampling.
+          I found that the IMU has a sample rate of ~270 Hz and the Barometer
+          has a sample rate of 25 Hz, which has a ratio of ~10 IMU measurements
+          per Barometer measurement. I implemented a small amount of code to
+          adjust the number of IMU measurements before taking a barometer
+          measurement. The result was a 10x increase in overall speed,
+          but this also brought light to another issue. 
+        </p>
+      </div>
+
+
+      <!-- Image Block -->
+      <section id="projects" class="section projects">
+        <div class="projects__grid">
+            <div class="image">
+              <img width="500" src="img/kalman/console.png">
+            </div>
+        </div>
+      </section>
+
+      <!-- Text Block -->
+      <div class="about center">
+        <p class="project__description">
+          Above is a sample console output of the system while moving. with
+          acceleration greater than one standard deviation away from zero.
+          As we can see the filtered altitude never adjusts in between
+          barometer steps, even with high amounts of movement. This means
+          that our accelerometer in reality has no real effect. I decided to
+          massively increase the weights of the barometer to reduce its impact
+          on both position and velocity. This not only reduced rapid
+          fluctuations based on the barometer, but also served to stop the
+          velocity from being capped near zero by the barometer. The end
+          result is a better sensitivity to accelerometer movements.
+        </p>
+      </div>
 
 
     <footer class="footer">
