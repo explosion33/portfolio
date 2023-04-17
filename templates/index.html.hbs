@@ -60,16 +60,22 @@
       <div class="about center">
         <h1 style="text-align: center;">Hi, I am <span class="about__name">Ethan Armstrong.</span></h1>
         <h2 class="about__role"></h2>
-        <p class="about__desc">
-          I am an undegraduate student at the University of Washington, who is
-          extremely passionate about all things STEM. I have considerable experience
-          in Computer Science, Engineering, Mathematics, and Physics, and would say
-          I am skilled in leadership, collaboration, and problem solving. Above all
-          else I value comradarie, and actively seek out oppurtunities to make life
-          long friends, and long lasting relationships.
-        </p>
 
-        <div class="about__contact center">
+        <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: center;">
+            <div style="text-align: center; display: inline-block; justify-content: center;">
+              <img src="/static/ethan.jpg" style="border-radius: 100%; padding: 5%;" width="300px" height="300px">
+            </div>
+            <p class="about__desc" id="desc" style="display: inline-block; margin-top: 2%">
+              I am an undegraduate student at the University of Washington, who is
+              extremely passionate about all things STEM. I have considerable experience
+              in Computer Science, Engineering, Mathematics, and Physics, and would say
+              I am skilled in leadership, collaboration, and problem solving. Above all
+              else I value comradarie, and actively seek out oppurtunities to make life
+              long friends, and long lasting relationships.
+            </p>
+          </div>
+
+          <div class="about__contact center">
           <a href="/static/resume.pdf">
             <span class="btn btn--outline">Resume</span>
           </a>
@@ -91,6 +97,7 @@
           </a>
         </div>
       </div>
+
 
       <!-- Projects -->
       <section id="projects" class="section projects">

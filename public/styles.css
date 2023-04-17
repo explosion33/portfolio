@@ -387,6 +387,12 @@
     transition: transform 0.2s ease-in-out;
   }
   
+  @media (max-width: 965px) {
+    #desc {
+      text-align: center;
+    }
+  }
+
   @media (max-width: 600px) {
     .header {
       height: 6em;
