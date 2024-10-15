@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Portfolio" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <script
+      src="https://kit.fontawesome.com/fa62c117c7.js"
+      crossorigin="anonymous"
+    ></script>
+     <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="stylesheet" href="static/styles.css" />
+    <title>Ethan Armstrong</title>
+  </head>
+  <body class="light" id="top">
+    <header class="header center">
+      <h3>
+        <a href="/" class="link"
+          >EA.</a
+        >
+      </h3>
+
+      <nav class="nav center">
+        <button type="button" aria-label="toggle theme" class="btn btn--icon">
+          <i aria-hidden="true" id="btn-theme" class="fas fa-moon"></i>
+        </button>
+
+        <button
+          type="button"
+          aria-label="toggle navigation"
+          class="btn btn--icon nav__hamburger"
+        >
+          <i aria-hidden="true" class="fas fa-bars"></i>
+        </button>
+      </nav>
+    </header>
+
+    <main>
+      <!-- Title / Links -->
+      <div class="about center">
+        <h1>Optimizing IoT Communications</h1>
+        <span style="margin-top: 0.5em;">
+        (October 2024)
+        </span>
+      </div>
+
+      <!-- Title / Links -->
+      <div class="about center">
+        <h3>Background</h1>
+      </div>
+
+      <!-- Text Block -->
+      <div class="about center">
+        <p class="project__description">
+            As the head of firmware development for <a href="https://www.secondsunlabs.com" class="link">Second Sun Labs (SSL)</a>
+            , part of my responsibilities are to design our
+            device communication infrastructure. Finding a
+            perfect mix of customization and robustness is
+            an extremely important aspect for any project
+            but is especially difficult when working on
+            custom hardware and sparse LTE networks.
+            For most of SSL's applications, our IoT Devices
+            are placed in poor quality cellular areas such as
+            the rural parts of major trucking routes, or
+            outside of major cities near important
+            infrastructure. In this blog post, I'd like
+            to explain my workflow, the problems I ran into,
+            and the solutions I came up with.
+        </p>
+      </div>
+
+      <!-- Title / Links -->
+      <div class="about center">
+        <h3>The Problem</h1>
+      </div>
+
+        <!-- Text Block -->
+      <div class="about center">
+        <p class="project__description">
+            When creating the packet communication protocols for our Node into
+            Devices, we originally wanted to use one of the many standard IoT
+            communication protocols. We settled on using an MQTT broker,
+            specifically the MQTTS variant apart of AWS, and sending all of
+            our data as a JSON, with the idea that it would be easy to encode,
+            parse, and debug. Initially, this system proved to be effective
+            (in Seattle's dense cellular networks), but after taking a couple
+            of devices on a road trip I quickly discovered that devices were
+            dropping packets. After some debugging, and research we found that
+            the likely culprit was a loss of network connction before the MQTT
+            connection could be established, and data sent.
+        </p>
+      </div>
+
+       <!-- Text Block -->
+      <div class="about center">
+        <p class="project__description">
+            As a first attempt at fixing this, I decided to optimize our packet
+            size by converting our JSON data to fixed binary streams, following
+            a custom encoding / decoding protocol. This essentially took the form
+            of a byte stream where abeks were renived abd bynbers reduced to their
+            raw bytes.
+        </p>
+      </div>
+
+      <!-- Image Block -->
+      <section id="projects" class="section projects">
+        <div class="projects__grid">
+            <div class="image">
+              <img width="800" src="img/optiot/byte_stream.png">
+            </div>
+        </div>
+      </section>
+
+       <!-- Text Block -->
+      <div class="about center">
+        <p class="project__description">
+            For a relatively large packet we were able to reduce our packet size 10x
+            , which reduced the frequency of packet loss, but wasn't perfect. Analysis
+            of the raw packets being sent revealed that although we had reduced our
+            packet size to ~60 bytes, the MQTTS (TLS) security steps involved multiple
+            1kb+ certificate transfers over the network. This handshake would often be
+            interrupted while on the move, causing a cascading affects of TCP re-sends,
+            and an eventual failure.
+        </p>
+      </div>
+
+      <!-- Title / Links -->
+      <div class="about center">
+        <h3>Utilizing IoT Carrier Features</h1>
+      </div>
+
+      <div class="about center">
+        <p class="project__description">
+            At this point we decided we need to ditch MQTTS, and find a protocol that
+            would remove or offload the TLS security requirements. After some searching,
+            we found that our IoT provider offered a service that would intercept any
+            outgoing packets and forward them to a number of preset services, one of which
+            being AWS. This service allowed us to offload the TLS handshake part to the
+            network which has a (almost) garunteed connection, and save the limited
+            bandwith of passing cell towers to only the required data.
+        </p>
+      </div>
+
+      <div class="about center">
+        <p class="project__description">
+            It was at this point that we also opted to further optimize our data transfer
+            by getting rid of the MQTT format and send our byte streams as raw UDP packets.
+            This worked because our carrier would still package this message into MQTT and
+            handle the encryption for AWS. With UDP packets we further eliminated overhead
+            and MCU time by removing the now unescsary MQTT overhead. With further
+            customization of our packet structure we were also able to re-implement nescesary
+            MQTT / TCP features in a way that better utilized our specific communication
+            needs. 
+        </p>
+      </div>
+
+      <!-- Title / Links -->
+      <div class="about center">
+        <h3>Results</h1>
+      </div>
+  
+      <div class="about center">
+        <p class="project__description">
+            <b>Decreased Packet loss</b>
+            <br>
+            As a result of both packet optimization and handshake offloading
+            we were able to decrease our packet loss from ~50% in low quality
+            cell regions to only ~2%, which we were later able to easily
+            mitigate with the addition of data storage and transmission retries
+            
+        </p>
+      </div>
+
+      <div class="about center">
+        <p class="project__description"></p>
+        <p class="project__description">
+            <b>Data Rate Savings</b>
+            <br>
+            Since we reduced our base packet size by 10x as well as offloaded
+            the ~4kb TLS handshake to a service with no extra charges, we saw
+            significant savings in our data transfer cost, both in cellular and
+            AWS fees.
+        </p>
+      </div>
+      
+
+      <div class="about center">
+        <p class="project__description">
+            While we can say that the solutions discussed were overall very
+            succesful, there was still one major downside to its implementation.
+            Our devices were now essentially, "locked into", using a specific
+            carrier. Due to our communication infrastructure's dependance on a
+            feature that differes from carrier to carrier or may not even exist,
+            if we ever wanted to use a different provider, we would have to undergo
+            a lengthy and difficult process to rebuild our infrasture, and re-program
+            devices. And with a constant need for us to switch carriers for a 
+            number of different reasons (location, price, etc.), we recognized this
+            was a high priority problem, which luckily we recently solved and the
+            solution can be read about in my other blog post,
+            <a href="/blog/agnostic-iot" class="link">"Carrier Agnostic IoT Devices"</a>.
+        </p>
+      </div>
+
+    <footer class="footer">
+    </footer>
+
+    <div class="scroll-container">
+    <div class="scroll-top">
+      <a aria-label="Scroll up" href="#top">
+        <i aria-hidden="true" class="fas fa-arrow-up"></i>
+      </a>
+    </div>
+    </div>
+
+    <script src="static/script.js"></script>
+  </body>
+</html>

@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Portfolio" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <script
+      src="https://kit.fontawesome.com/fa62c117c7.js"
+      crossorigin="anonymous"
+    ></script>
+     <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="stylesheet" href="static/styles.css" />
+    <title>Ethan Armstrong</title>
+  </head>
+  <body class="light" id="top">
+    <header class="header center">
+      <h3>
+        <a href="/" class="link"
+          >EA.</a
+        >
+      </h3>
+
+      <nav class="nav center">
+        <button type="button" aria-label="toggle theme" class="btn btn--icon">
+          <i aria-hidden="true" id="btn-theme" class="fas fa-moon"></i>
+        </button>
+
+        <button
+          type="button"
+          aria-label="toggle navigation"
+          class="btn btn--icon nav__hamburger"
+        >
+          <i aria-hidden="true" class="fas fa-bars"></i>
+        </button>
+      </nav>
+    </header>
+
+    <main>
+      <!-- Title / Links -->
+      <div class="about center">
+        <h1>Carrier Agnostic IoT Devices</h1>
+        <span style="margin-top: 0.5em;">
+        (October 2024)
+        </span>
+      </div>
+
+      <!-- Title / Links -->
+      <div class="about center">
+        <h3>Background</h1>
+      </div>
+
+      <!-- Text Block -->
+      <div class="about center">
+        <p class="project__description">
+            In my last blog post, <a href="/blog/optimizing-iot" class="link">"Optimizing IoT Communications"</a>
+            I went over how I optimized Second Sun Labs' Node Device To
+            work more effeciently on poor quality LTE networks. At the
+            end of the post I mentioned the limitations to this solution
+            being a dependance on our carriers intercept services.
+            In this blog post I will expand on the solution we came up
+            with.
+        </p>
+      </div>
+
+      <!-- Title / Links -->
+      <div class="about center">
+        <h3>What Does our Carrier Actually do</h1>
+      </div>
+
+        <!-- Text Block -->
+      <div class="about center">
+        <p class="project__description">
+            To begin the process of making our devices carrier agnostic, it
+            would be usefull to describe what it is our carrier actually does.
+            We can break down all of the steps of our communications as follows:
+        </p>
+      </div>
+
+       <!-- Text Block -->
+      <div class="about center">
+        <p class="project__description">
+          <ol>
+            <li>Node sends UDP packet to dummy UDP Server (1.2.3.4:4321)</li>
+            <li>Carrier stops packet from leaving the network, and packages UDP data into an MQTT packet</li>
+            <li>Carrier handles TLS handshake and sends MQTTS packet to AWS</li>
+            <li>Server reads MQTT packet off of AWS, grabs and parsed UDP data</li>
+            <li>Server sends response over MQTT</li>
+            <li>Carrier recieves message from AWS and converts it into a UDP packet</li>
+            <li>Carrier sends UDP packet to Node</li>
+          </ol>
+        </p>
+      </div>
+
+      <div class="about center">
+        <p class="project__description">
+            Looking over this process, we can see that the carrier only does three things.
+            The first being a conversion between UDP to MQTT, second a TLS handshake, and
+            third, forwarding data to its final destination. If we want to remove the
+            dependence on our carrier, we need to come up with in-house solutions for these
+            three steps.
+        </p>
+      </div>
+
+      <!-- Title / Links -->
+      <div class="about center">
+        <h3>Carrier Agnostic IoT Communication</h1>
+      </div>
+
+      <div class="about center">
+        <p class="project__description">
+            To start making our new communication protocol, we can start by looking at
+            the two steps that are nearly the same, converting to MQTT and sending the
+            packet to its final destination. Just looking at the steps listed above,
+            we can see that these steps are redundant. Both Client and Server deal with
+            raw byte streams and don't pay any attention to the MQTT format.
+        </p>
+      </div>
+
+      <div class="about center">
+        <p class="project__description">
+            If we were to just avoid MQTT all together and send UDP packets directly
+            between Client and Server, we could avoid two of our carriers main tasks.
+            And it turns out, this is extremely easy to do. All it takes is setting
+            up a UDP Server instead of an MQTT Client on our backend, which comes
+            standard in the majority of languages. Then changing Firmware / Server
+            to send messages to a specific destionation, i.e. comms.SecondSunLabs.com:8000
+        </p>
+      </div>
+
+      <!-- Title / Links -->
+      <div class="about center">
+        <h3>End to End (E2E) Encryption</h1>
+      </div>
+
+      <div class="about center">
+        <p class="project__description">
+            With the UDP server setup we now have a working communications
+            system. However, we are now sending raw UDP packets across the
+            network which poses a huge security risk. So how can we go about
+            re-encrypting our data? We can start by looking at how we used to
+            do it, which was TLS as apart of MQTT. TLS has two main steps
+        </p>
+      </div>
+
+      <div class="about center">
+        <p class="project__description">
+          <ol>
+            <li>Asyncronous key AES key exchange</li>
+            <li>communication using syncronous AES keys</li>
+          </ol>
+        </p>
+      </div>
+
+      <div class="about center">
+        <p class="project__description">
+            lets start with step two as it will be easier. AES is a standard
+            library on most platforms, and if not has a lot of example
+            implementations. We can start by adding AES encryption to our packets
+            using a pre-set key. This only adds 16-31 bytes to our payload for the
+            Initialization Vector (IV) and to round the data to a multiple of 16.
+        </p>
+      </div>
+
+      <div class="about center">
+        <p class="project__description">
+            Now that we have AES setup we need to figure out how to share keys with
+            the server. The standard way to do this would be to use an asyncronous
+            encryption (RSA). However, this is bad for multiple reasons.
+        </p>
+      </div>
+
+      <div class="about center">
+        <p class="project__description">
+          <ol>
+            <li>In the last article, large RSA certificate transfers lead to massive amounts of dropped packets</li>
+            <li>RSA is not secure against quantum attacks, so a more computationally heavy encryption would have to be implemented</li>
+          </ol>
+        </p>
+      </div>
+
+      <div class="about center">
+        <p class="project__description">
+            For these reasons I opted to leverage our production process to handle the key exchange steps.
+            During the initial flashing process, we can have the flasher take one extra step (requesting)
+            the AES key from the device, this key is then generated based off of internal UID's and a
+            hashing algorithm and stored on both the server and the secure flash segment.
+
+            This process essentially acts as a one time key exchange, and is still fully secure from
+            remote attacks. The only way to breach this communications would be to physically attack
+            the hardware to retrieve the key, which is made difficult due to physcial security practices.
+            Even if this key was breached, this would only expose the one device to attacks, leaving
+            the rest of the network secure
+        </p>
+      </div>
+
+      <!-- Title / Links -->
+      <div class="about center">
+        <h3>Results</h1>
+      </div>
+  
+      <div class="about center">
+        <p class="project__description">
+            After implementing these new systems we have made our deices
+            fully carrier agnostic (minus small firmware changes like APN).
+            This has allowed us to select the best carrier for each
+            different applicaton, reducing networking costs, and giving
+            customers a better deal.
+            In this proccess we havee also added full end to end encryption
+            which was lacking on the old system as the data was not secure
+            during the device to tower phase. AS well as future proofed our
+            data against quantum decryption and store now decrypt later
+            practices.
+            Furthermore, we only increased oour entire packet size by ~20
+            bytes on average with this implementation.
+        </p>
+      </div>
+
+    <footer class="footer">
+    </footer>
+
+    <div class="scroll-container">
+    <div class="scroll-top">
+      <a aria-label="Scroll up" href="#top">
+        <i aria-hidden="true" class="fas fa-arrow-up"></i>
+      </a>
+    </div>
+    </div>
+
+    <script src="static/script.js"></script>
+  </body>
+</html>
