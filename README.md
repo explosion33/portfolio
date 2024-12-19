@@ -8,7 +8,7 @@
 
 ```docker build . -t explosion33/portfolio:latest```
 
-```docker push```
+```docker push explosion33/portfolio```
 
 then to run on server
 

@@ -1,7 +1,8 @@
-FROM ubuntu:20.04
+FROM ubuntu:24.04
 
 
-RUN apt-get update -y
+# removed because causing errors with time desync and not using any ext. packages
+#RUN apt-get update -y
 
 COPY public /home/public
 COPY proj_images /home/proj_images
