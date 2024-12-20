@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Portfolio" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://kit.fontawesome.com/cdb21d0c48.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="static/styles.css" />
+    <title>Ethan Armstrong</title>
+  </head>
+  <body class="light" id="top">
+    <header class="header center">
+      <h3>
+        <a href="/" class="link"
+          >EA.</a
+        >
+      </h3>
+
+      <nav class="nav center">
+        <button type="button" aria-label="toggle theme" class="btn btn--icon">
+          <i aria-hidden="true" id="btn-theme" class="fas fa-moon"></i>
+        </button>
+
+        <button
+          type="button"
+          aria-label="toggle navigation"
+          class="btn btn--icon nav__hamburger"
+        >
+          <i aria-hidden="true" class="fas fa-bars"></i>
+        </button>
+      </nav>
+    </header>
+
+    <main>
+      <!-- Title / Links -->
+      <div class="about center">
+        <h1>ARES</h1>
+        <div class="about__contact center">
+            <a
+              href="https://github.com/explosion33/ares"
+              aria-label="source code"
+              class="link link--icon"
+            >
+              <i aria-hidden="true" class="fab fa-github"></i>
+            </a>
+        </div>
+      </div>
+
+      <!-- Text Block -->
+      <div class="about center">
+        <p class="project__description">
+          This year, as a member of SARP (the Society for Advanced Rocket Propulsion)
+          at UW, my team has gotten to continue the work done in previous years for
+          ARES, the Autonomous Recovery Experimental System. ARES is an automous
+          recovery system designed around a rogallo wing parachute in order to bring
+          launched rockets back to the launchpad. This would circumvent the need for
+          members to hike, potentially miles, into the desert and haul back the
+          recovered rocket under a traditional 2 stage recovery system. The basic idea
+          behind ARES is using two motors to actuate the control lines of the parachute
+          to perrform turning and breaking meneauvers. Combining this with a fleet
+          of sensors to determine attitude, speed and position, and you can automously
+          fly the rocket to a set of coordinates.
+        </p>
+      </div>
+
+      <!-- Text Block -->
+      <div class="about center">
+        <h3>ARES V1</h3>
+        <p class="project__description">
+          In previous years, ARES existed as a one off side project, with minimal
+          rescources and members associated with it. The final ARES V1 (pictured above),
+          consisted of the following main components:
+        </p>
+      </div>
+      <div style="padding-left: 10%;">
+        <p class="project__description">
+          <ul class="bullets" style="text-align: left;">
+            <li>Teensy 3.1 as the MCU</li>
+            <li>2x Polulu motors with built in controllers</li>
+            <li>2x Polulu motor drivers</li>
+            <li>BNO055 IMU</li>
+            <li>PA1616S GPS</li>
+            <li>BMP280</li>
+            <li>LORA-WAN Transciever</li>
+          </ul>
+        </p>
+      </div>
+
+      <!-- Image Block -->
+      <section id="projects" class="section projects">
+        <div class="projects__grid">
+            <div class="image">
+              <img width="500" src="radio/img/finished_board_1.jpg">
+            </div>
+            <div class="image">
+              <img height="375" src="radio/img/finished_board_2.jpg">
+            </div>
+        </div>
+      </section>
+
+      <!-- Text Block -->
+      <div class="about center">
+        <p class="project__description">
+          These components were all assembled using breakout boards and proto-boards to.
+          form the final product.
+        </p>
+        <p class="project__description">
+          Running on the Teensy was a simple script that measured the position of the
+          motor through the encoder and adjusted it based off a PID controller with the
+          GPS as its input. This system lead to ARES' first (mostly) succesful test flight
+          last year, which bumped ARES up as a viable recovery option to be integrated into
+          one of the teams primary rockets, and flown in competition. However, V1 had many
+          problems that would first need to be addressed.
+        </p>
+      </div>
+
+      <!-- Text Block -->
+      <div class="about center">
+        <p>
+          The first major problem was a lack of control authority with the motors. The
+          chosen motors were not strong enough to actuate the control lines under all
+          conditions leading to a failure on the PID control to effectively correct its
+          course. This meant ARES had to be flown manually, with a human operator
+          meneauvering the rocket around high drag areas.
+        </p>
+      </div>
+
+      <!-- Text Block -->
+      <div class="about center">
+        <p>
+          The second, more minor, issue was a lack of full sensor usage. Although ARES
+          had 3 sensor packages meant to be filtered together, it relied purely on GPS,
+          which did not cause any problems during its flight, but has potential to lead
+          to future problems.
+        </p>
+      </div>
+      <!-- Text Block -->
+      <div class="about center">
+        <p>
+          Finally, in order for ARES to be flight ready on this years rocket, the system
+          has to undergo some improvements to meet new requirements. The two major of these,
+          are an increase in range, power, and quality in its radio system and the use of a
+          more robust assembly, including a mechanical systems overhaul, and the use of
+          printed and assembled PCBs over breakout and proto-boards.
+        </p>
+      </div>
+
+      <!-- Text Block -->
+      <div class="about center">
+        <h3>ARES V2</h3>
+        <p class="project__description">
+          The plan to upgrade ARES, is to upgrade and overhaul all of its individual systems.
+          The Controls and Electronics teams' plan for this is a three custom PCB stack each
+          upgrading the major system of ARES V1: Flight Operations and Control, Motor Actuation,
+          and Radio Uplink. These PCBs will be able to fit compactly in a 60mmx60mm stack
+          achieving a robust and compact design.
+        </p>
+
+        <p class="project__description" style="font-size: 12px;">
+          * Note as of writing this we are roughly 1/3 of the way through our design cycle, with
+          a finished PDR and a CDR in ~5 weeks. We have manufacturued both the flight computer
+          and MCP board, and have previous versions of the rf board
+        </p>
+      </div>
+
+      <!-- Text Block -->
+      <div class="about center">
+        <h3>Motor Control Board</h3>
+        <p>
+            Starting with the largest problem with ARES V1, motor failure, we chose bigger and
+            stronger motors for the V2 design. We picked motors under the same brand that had
+            roughly 17x the torque of the original motors. However, these motors pull a massive
+            5A at 12V (max) which would require an upgrade to the control circuitry. After some
+            searching we only found sparse examples of motor controllers that met our power
+            requirements, and the onese we did find were full independent boards which would be
+            difficult to make work with our spacing requirements. However, our research lead us
+            to the concept of an H-Bridge, which turns out is basically four MOSFETs and would
+            be extremely easy to prototype. Working on a breadboard lead us to the following design
+        </p>
+      </div>
+
+      <!-- Image Block -->
+      <section id="projects" class="section projects">
+        <div class="projects__grid">
+            <div class="image">
+              <img width="500" src="ares/img/ares_hbridge.png">
+            </div>
+            <div class="image">
+              <img height="375" src="radio/img/finished_board_2.jpg">
+            </div>
+        </div>
+      </section>
+
+      <div class="about center">
+        <p class="project__description">
+          The above is a standard H-Bridge design with additional mosfets that serve to drive the
+          high side mosfets as well as standardize the input polarity on all four mosfets. The
+          design allows us to both control direction by turning on alternating MOSFETS, as well as
+          control speed by supplying a PWM signal to the low side MOSFETS. Additionally the utilization
+          of power MOSFETS allow us to work at well above 12V 5A.
+        </p>
+      </div>
+
+      <!-- Text Block -->
+      <div class="about center">
+        <p>
+          While designing the H-Bridge circuits we also opted to include an STM32 for handling all
+          motor controls and connections. This would allow us to more easily divide work both in our
+          program and our design process.
+        </p>
+      </div>
+
+      <!-- Text Block -->
+      <div class="about center">
+        <p>
+          Finally, since the H-Bridge needs a VBAT input we opted to merge the power supply circuitry
+          into the Motor Board. We decided to use a LM2576 chip from TI, as we had experience from past
+          years, and parts in stock to prototype with. This would be able to supply 3.3V @3A which
+          should be plenty for the other two boards.
+        </p>
+      </div>
+
+      <!-- Image Block -->
+      <section id="projects" class="section projects">
+        <div class="projects__grid">
+            <div class="image">
+              <img width="500" src="ares/img/ares_psu.png">
+            </div>
+            <div class="image">
+              <img height="375" src="radio/img/finished_board_2.jpg">
+            </div>
+        </div>
+      </section>
+
+      <div class="about center">
+        <h3>Flight Computer</h3>
+        <p class="project__description">
+          Up next, is our flight computer board, which is mostly the same as ARES V1 except that
+          breakout boards have been copied and placed directly onto a single PCB, and theres an
+          addition of an onboard flash chip, and ribbon connectors for board to board communications
+        </p>
+      </div>
+
+      <!-- Image Block -->
+      <section id="projects" class="section projects">
+        <div class="projects__grid">
+            <div class="image">
+              <img width="500" src="radio/img/finished_board_1.jpg">
+            </div>
+        </div>
+      </section>
+
+      <div class="about center">
+        <h3>RF Board</h3>
+        <p class="project__description">
+          Finally, for our RF board we are using the same SubGhz design I made in a previous project 
+          <a class="link link--nav" href="/radio">"VHF Radio PCB"</a> with a few upgrades. To start,
+          the form fator has been overhauled and condesned into the circular and ribbon connector
+          format. Additionally, a schematic has been mocked up to add a Front End Module (FEM) that
+          would boost the power output to +30dbm, however this change is pending range testing on the
+          current boards and the acquisition of the FEM chips.
+        </p>
+      </div>
+
+      <!-- Image Block -->
+      <section id="projects" class="section projects">
+        <div class="projects__grid center">
+            <div class="image">
+              <img width="500" src="ares/img/ares_rf.png">
+            </div>
+            <div class="image">
+              <img height="500" src="ares/img/ARES_MID.png">
+            </div>
+        </div>
+      </section>
+
+      <div class="about center">
+        <h3>Firmware and Software</h3>
+        <p class="project__description">
+          Lastly, we are overhauling the firmware, control systems, and supporting software. To start,
+          our firmware is decentralized among our three boards.
+        </p>
+      </div>
+      <div class="about center">
+        <p class="prohect__description">
+          The motor control takes an average control line length and a control line offset from the
+          flight computer and computes the position of each of the motors. It then feeds this through a
+          PID controller to set the precise position of each motor.
+        </p>
+      </div>
+      <div class="about center">
+        <p class="prohect__description">
+          The Flight Computer passes all of its sensor data through a series of Kalman Filters to arrive
+          at a filtered version of a horizantal and vertical vector that describe the movement of ARES.
+          It then passes both of these through a horizantal and a vertical PID controller which calculate
+          the control line ratio, and control line average respectively.
+        </p>
+      </div>
+      <div class="about center">
+        <p class="prohect__description">
+          Finally the rf board handles 90% of radio communications including packet retries, message coding,
+          and message formating. It exposes a UART interface so the FC and RF board can collectively transfer
+          telemetry packets to the ground and command packets to ARES.
+        </p>
+      </div>
+
+      <!-- Image Block -->
+      <section id="projects" class="section projects">
+        <div class="projects__grid">
+            <div class="image">
+              <img width="650" src="ares/img/ares_flow.png">
+            </div>
+        </div>
+      </section>
+
+       <!-- Image Block -->
+      <section id="projects" class="section projects">
+        <div class="projects__grid">
+            <div class="image">
+              <img width="500" src="ares/img/ares_fsm.png">
+            </div>
+            <div class="image">
+              <img height="500" src="ares/img/ares_osi.png">
+            </div>
+        </div>
+      </section>
+
+      <!-- Text Block -->
+      <div class="about center">
+        <p>
+          On the ground there is a second RF board connected to a laptop via USBC. The laptop is running
+          our custom middleware and UI software. The middleware converts the serial communication between
+          the laptop and RF board into a REST API, so it can be easily accessed by a web based UI for
+          displaying real-time charts, and an easy to use command interface. Additionally, the ground
+          station system will most likely include a 70cm centimeter yagi antenna for high gain communications,
+          as well as a wired XBOX controller for remote piloting.
+        </p>
+      </div>
+
+      <div class="about center">
+        <h3>ARES C&E Team</h3>
+          <p class="project__description">
+            <a class="link link--nav" href="https://www.linkedin.com/in/fowler-james/">Jimmy Fowler</a>
+          </p>
+          <p class="project__description">
+            <a class="link link--nav" href="https://www.linkedin.com/in/oliver-buehrer/">Oliver Buehrer</a>
+          </p>
+        </div>
+      </div>
+
+      <div class="about center">
+        <h3>Supplimental Documentation</h3>
+        <p class="project__description">
+          <a class="link link--nav" href="/ares/img/ares_doc.pdf">ARES CE Documentation</a> (December 2024)
+        </p>
+      </div>
+
+    <footer class="footer">
+    </footer>
+
+    <div class="scroll-container">
+    <div class="scroll-top">
+      <a aria-label="Scroll up" href="#top">
+        <i aria-hidden="true" class="fas fa-arrow-up"></i>
+      </a>
+    </div>
+    </div>
+
+    <script src="static/script.js"></script>
+  </body>
+</html>
